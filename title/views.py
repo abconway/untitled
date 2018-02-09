@@ -1,3 +1,10 @@
-from django.shortcuts import render
+from rest_framework.viewsets import ModelViewSet
 
-# Create your views here.
+from .models import Title
+from .serializers import TitleSerializer
+
+
+class TitleViewSet(ModelViewSet):
+    serializer_class = TitleSerializer
+    queryset = Title.objects.all()
+
