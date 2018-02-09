@@ -22,5 +22,8 @@ class CustomAutoSlugField(AutoSlugField):
 
 
 class Title(TimeStampedModel):
+    class Meta:
+        ordering = ['-modified']
+
     name = models.CharField(max_length=4096, null=False, blank=False)
     slug = CustomAutoSlugField(populate_from='name')
