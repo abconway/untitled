@@ -1,3 +1,5 @@
+.PHONY: all test
+
 all: venv setup run
 
 install:
@@ -14,6 +16,10 @@ run:
 	honcho start
 
 setup: install recreate-db
+
+test:
+	./manage.py test
+	npm run test
 
 venv:
 	rm -rf venv
