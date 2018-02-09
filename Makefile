@@ -1,29 +1,33 @@
 .PHONY: all test
 
-all: venv setup seed run
+all: clean venv setup seed run
 
 install:
 	npm install
-	pip install -r requirements.txt
+	venv/bin/pip install -r requirements.txt
+
+clean: delete-db
+	rm -rf node_modules
+	rm -rf venv
 
 delete-db:
 	rm -f db.sqlite3
 
 recreate-db: delete-db
-	./manage.py migrate
+	venv/bin/python manage.py migrate
 
 run:
-	honcho start
+	venv/bin/honcho start
 
 seed:
-	./manage.py loaddata user_data
-	./manage.py loaddata title_data
+	venv/bin/python manage.py loaddata user_data
+	venv/bin/python manage.py loaddata title_data
 
 setup: install recreate-db
 
 test-django:
 	@echo '============= Running Django Tests... ============='
-	./manage.py test
+	venv/bin/python manage.py test
 	@echo '============== Django Tests Complete =============='
 
 test-vue:
@@ -34,5 +38,4 @@ test-vue:
 test: test-django test-vue
 
 venv:
-	rm -rf venv
-	virtualenv venv -p $(which python3)
+	virtualenv venv -p $(shell which python3)
