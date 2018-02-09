@@ -9,3 +9,6 @@ venv
 
 # Test Coverate
 /test/unit/coverage/
+
+# DB
+db.sqlite3
