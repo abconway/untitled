@@ -1,6 +1,6 @@
 .PHONY: all test
 
-all: venv setup run
+all: venv setup seed run
 
 install:
 	npm install
@@ -14,6 +14,10 @@ recreate-db: delete-db
 
 run:
 	honcho start
+
+seed:
+	./manage.py loaddata user_data
+	./manage.py loaddata title_data
 
 setup: install recreate-db
 

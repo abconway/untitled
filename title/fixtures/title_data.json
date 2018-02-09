@@ -1,0 +1,52 @@
+[
+  {
+    "model": "title.title",
+    "pk": 1,
+    "fields": {
+      "created": "2018-02-09T20:23:55.371Z",
+      "modified": "2018-02-09T20:23:55.371Z",
+      "name": "It is impossible to walk rapidly and be unhappy.",
+      "slug": "it-is-impossible-to-walk-rapidly-and-be-unhappy"
+    }
+  },
+  {
+    "model": "title.title",
+    "pk": 2,
+    "fields": {
+      "created": "2018-02-09T20:35:44.967Z",
+      "modified": "2018-02-09T20:35:44.968Z",
+      "name": "We don't get offered crises, they arrive.",
+      "slug": "we-dont-get-offered-crises-they-arrive"
+    }
+  },
+  {
+    "model": "title.title",
+    "pk": 3,
+    "fields": {
+      "created": "2018-02-09T20:35:56.490Z",
+      "modified": "2018-02-09T20:35:56.490Z",
+      "name": "I have seen the future and it doesn't work.",
+      "slug": "i-have-seen-the-future-and-it-doesnt-work"
+    }
+  },
+  {
+    "model": "title.title",
+    "pk": 4,
+    "fields": {
+      "created": "2018-02-09T20:35:58.040Z",
+      "modified": "2018-02-09T20:35:58.040Z",
+      "name": "I dwell in possibility...",
+      "slug": "i-dwell-in-possibility"
+    }
+  },
+  {
+    "model": "title.title",
+    "pk": 5,
+    "fields": {
+      "created": "2018-02-09T20:37:46.107Z",
+      "modified": "2018-02-09T20:37:46.107Z",
+      "name": "Knowledge is power.",
+      "slug": "knowledge-is-power"
+    }
+  }
+]
