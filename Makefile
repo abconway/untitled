@@ -18,8 +18,12 @@ run:
 setup: install recreate-db
 
 test:
+	@echo '============= Running Django Tests... ============='
 	./manage.py test
+	@echo '============== Django Tests Complete =============='
+	@echo '=============== Running Vue Tests... =============='
 	npm run test
+	@echo '================ Vue Tests Complete ==============='
 
 venv:
 	rm -rf venv
