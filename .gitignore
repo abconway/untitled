@@ -7,7 +7,7 @@ npm-debug.log*
 *.pyc
 venv
 
-# Test Coverate
+# Test Coverage
 /test/unit/coverage/
 
 # DB
