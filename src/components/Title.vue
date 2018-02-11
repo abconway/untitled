@@ -101,6 +101,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+@font-face {
+    font-family: 'copernicus-heavy';
+    src: url('../fonts/copernicus_webfont/Copernicus-Heavy.eot?') format('eot'),
+         url('../fonts/copernicus_webfont/Copernicus-Heavy.woff') format('woff'),
+         url('../fonts/copernicus_webfont/Copernicus-Heavy.ttf') format('truetype');
+}
 div {
     margin: 0;
     padding: 0;
@@ -110,7 +116,7 @@ img {
     width: 25px;
 }
 .accept {
-    background-color: green;
+    background-color: limegreen;
 }
 .button {
     height: 25px;
@@ -128,7 +134,7 @@ img {
     width: 100%;
 }
 .discard {
-    background-color: red;
+    background-color: orangered;
 }
 .edit {
     background-color: yellow;
@@ -141,8 +147,10 @@ img {
 }
 .text {
     background-color: white;
+    color: black;
     display: inline;
-    font-size: 2em;
+    font-family: copernicus-heavy;
+    font-size: 2.5em;
     padding: 0.2em;
 }
 </style>

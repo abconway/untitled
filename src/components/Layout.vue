@@ -26,19 +26,20 @@
         <div class="content">
             <div class="row">
                 <div class="column width-12_5"></div>
-                <div class="column width-25">
+                <div class="column width-25 futura">
                     <div class="width-75"><hr></div>
-                    <p>BY: Bob Loblaw</p>
+                    <p>BY <span class="copernicus black">Bob Loblaw</span></p>
                     <div class="width-75"><hr></div>
-                    <p>Aug, 6 2015</p>
+                    <p>AUGUST, 6 2015</p>
                     <div class="width-75"><hr></div>
                     <span>#ENVIRONMENT</span><br>
                     <span>#SWIFT</span><br>
                     <span>#FUNGUS</span><br>
                 </div>
-                <div class="column width-50" style="vertical-align: top;">
+                <div class="column width-50 palatino" style="vertical-align: top;">
                     <p>
-                        NEW YORK, NY. Nunc eu ullamcorper orci. Quisque eget odio ac lectus
+                        <span class="futura">NEW YORK, NY.</span>
+                        Nunc eu ullamcorper orci. Quisque eget odio ac lectus
                         vestibulum faucibus eget in metus. In pellentesque faucibus vestibulum.
                         Nulla at nulla justo, eget luctus tortor. Nulla facilisi. Duis aliquet
                         egestas purus in blandit. Curabitur vulputate, ligula lacinia scelerisque
@@ -58,7 +59,7 @@
                 </div>
                 <div class="column width-12_5"></div>
             </div>
-            <div class="row" style="margin-bottom: 1em;">
+            <div class="row copernicus gray" style="margin-bottom: 1em;">
                 <div class="column width-25"></div>
                 <div class="column text-center width-62_5">
                     <div class="center width-75">
@@ -70,7 +71,7 @@
                 </div>
                 <div class="column width-12_5"></div>
             </div>
-            <div class="row">
+            <div class="row palatino">
                 <div class="column width-37_5"></div>
                 <div class="column width-50">
                     <p>
@@ -109,11 +110,20 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+@font-face {
+    font-family: 'copernicus-heavy';
+    src: url('../fonts/copernicus_webfont/Copernicus-Heavy.eot?') format('eot'),
+         url('../fonts/copernicus_webfont/Copernicus-Heavy.woff') format('woff'),
+         url('../fonts/copernicus_webfont/Copernicus-Heavy.ttf') format('truetype');
+}
 div {
     display: inline-block;
     margin: 0;
     padding: 0;
     text-align: left;
+}
+hr {
+    border-color: inherit;
 }
 h2 {
     font-size: 1.5em;
@@ -136,6 +146,9 @@ p {
     padding-top: 66.67%;
     position: relative;
 }
+.black {
+    color: black;
+}
 .bottom {
     bottom: 2em;
 }
@@ -144,6 +157,9 @@ p {
 }
 .column {
     margin-right: -4px;
+}
+.copernicus {
+    font-family: copernicus-heavy;
 }
 .content {
     left: 70px;
@@ -154,12 +170,23 @@ p {
     height: 100%;
     width: 70px;
 }
+.futura {
+    color: darkgray;
+    font-family: Futura;
+    font-size: 0.75em;
+}
+.gray {
+    color: slategray;
+}
 .left {
     float: left;
     left: 0;
 }
 .offset {
     top: 2.5em;
+}
+.palatino {
+    font-family: Palatino;
 }
 .relative {
     position: relative;
