@@ -31,11 +31,7 @@
 export default {
   name: 'Title',
   created() {
-    this.axios.get('http://localhost:8000/api/titles/').then((response) => {
-      this.currentTitleId = response.data[0].id;
-      this.title = response.data[0].name;
-      this.temporaryTitle = response.data[0].name;
-    });
+    this.getTitles();
   },
   computed: {
     empty() {
@@ -74,6 +70,13 @@ export default {
     },
     discard() {
       this.temporaryTitle = this.title;
+    },
+    getTitles() {
+      this.axios.get('http://localhost:8000/api/titles/').then((response) => {
+        this.currentTitleId = response.data[0].id;
+        this.title = response.data[0].name;
+        this.temporaryTitle = response.data[0].name;
+      });
     },
     slugRandomizer() {
       return Math.random().toString(36).substring(2, 7);
