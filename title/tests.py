@@ -1,24 +1,47 @@
-import random
+import json
 
 from django.test import TestCase
 
+from rest_framework.test import APIRequestFactory
+
 from .models import Title
+from .serializers import TitleSerializer
+from .views import TitleViewSet
 
 
 class TestTitleModel(TestCase):
-    def test_slugification(self):
-        random.seed(555)
-        name = 'I am a title'
+    def test_default_ordering(self):
+        first = Title.objects.create(name='First Title', slug='first-title')
+        middle = Title.objects.create(name='Middle Title', slug='middle-title')
+        last = Title.objects.create(name='Last Title', slug='Last-title')
 
-        first_title = Title.objects.create(name=name)
-        self.assertEqual(first_title.name, name)
+        titles = Title.objects.all()
 
-        first_expected_slug = 'i-am-a-title'
-        self.assertEqual(first_title.slug, first_expected_slug)
+        self.assertEqual(last, titles[0])
+        self.assertEqual(middle, titles[1])
+        self.assertEqual(first, titles[2])
 
-        second_title = Title.objects.create(name=name)
-        self.assertEqual(second_title.name, name)
-        self.assertNotEqual(first_title.slug, second_title.slug)
 
-        second_expected_slug = 'i-am-a-title-feoxd'
-        self.assertEqual(second_title.slug, second_expected_slug)
+class TestTitleViewSet(TestCase):
+    def test_filtering(self):
+        Title.objects.create(name='Some Slug Here', slug='some-slug-here')
+        Title.objects.create(name='Not Our Slug', slug='not-our-slug')
+
+        factory = APIRequestFactory()
+        request = factory.get('/api/titles/', {'slug': 'some-slug-here'})
+        view = TitleViewSet.as_view({'get': 'list'})
+        response = view(request)
+        response.render()
+        content = json.loads(response.content)
+
+        self.assertEqual(len(content), 1)
+        self.assertEqual(content[0]['name'], 'Some Slug Here')
+
+
+class TestTitleSerializer(TestCase):
+    def test_format(self):
+        title = Title.objects.create(name='A Title', slug='a-title')
+        data = TitleSerializer(title).data
+        expected_data = {'id': 1, 'name': 'A Title', 'slug': 'a-title'}
+
+        self.assertDictEqual(data, expected_data)
