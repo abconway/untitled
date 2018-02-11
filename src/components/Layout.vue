@@ -12,9 +12,9 @@
             <div class="row bottom absolute">
                 <div class="column width-12_5"></div>
                 <div class="column relative offset width-62_5">
-                    <h1 class="width-85">
-                        I knew you were trouble when you walked in.
-                    </h1>
+                    <div class="width-85">
+                        <Title/>
+                    </div>
                 </div>
                 <div class="column width-25"></div>
             </div>
@@ -28,7 +28,7 @@
                 <div class="column width-12_5"></div>
                 <div class="column width-25">
                     <div class="width-75"><hr></div>
-                    <p>By: Bob Loblaw</p>
+                    <p>BY: Bob Loblaw</p>
                     <div class="width-75"><hr></div>
                     <p>Aug, 6 2015</p>
                     <div class="width-75"><hr></div>
@@ -97,8 +97,13 @@
 </template>
 
 <script>
+import Title from '@/components/Title.vue';
+
 export default {
   name: 'Layout',
+  components: {
+    Title,
+  },
 };
 </script>
 
@@ -109,12 +114,6 @@ div {
     margin: 0;
     padding: 0;
     text-align: left;
-}
-h1 {
-    background-color: white;
-    display: inline;
-    font-size: 2em;
-    padding: 0.2em;
 }
 h2 {
     font-size: 1.5em;
