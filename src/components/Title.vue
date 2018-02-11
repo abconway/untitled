@@ -22,6 +22,14 @@
 <script>
 export default {
   name: 'Title',
+  created() {
+    this.axios.get('http://localhost:8000/api/titles/').then((response) => {
+      this.current_title_id = response.data[0].id;
+      this.title = response.data[0].name;
+      this.temporary_title = response.data[0].name;
+      this.real_slug = response.data[0].slug;
+    });
+  },
   computed: {
     slug() {
       return this.temporary_title.toString().toLowerCase()
@@ -35,8 +43,10 @@ export default {
   },
   data() {
     return {
+      current_title_id: 0,
       title: 'I knew you were trouble when you walked in.',
       temporary_title: 'I knew you were trouble when you walked in.',
+      real_slug: 'i-knew-you-were-trouble-when-you-walked-in',
       active: true,
     };
   },
