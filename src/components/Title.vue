@@ -17,8 +17,12 @@
     </div>
     <div class="container" v-show="!active">
         <input class="input" v-model="temporaryTitle">
-        <div class="slug" v-show="!empty">slug: {{ slug }}</div>
-        <div class="slug" v-show="empty">slug: please enter a post title</div>
+        <div class="slug" v-show="!empty">
+            <span class="gray">slug:</span> {{ slug }}
+        </div>
+        <div class="slug" v-show="empty">
+            <span class="gray">slug: <i>please enter a post title</i></span>
+        </div>
     </div>
 </div>
 </template>
@@ -139,10 +143,16 @@ img {
 .edit {
     background-color: yellow;
 }
+.gray {
+    color: darkgray;
+}
 .input {
+    font-size: 2em;
+    font-family: copernicus-heavy;
     font-size: 2em;
 }
 .slug {
+    font-family: Futura;
     font-size: 10px;
 }
 .text {
