@@ -6,15 +6,19 @@
     <div class="button" v-on:click="toggle(); discard()" v-show="!active">
         <img class="discard" src="../assets/x.svg">
     </div>
-    <div class="button" v-on:click="toggle(); accept()" v-show="!active">
+    <div class="button" v-on:click="toggle(); accept()" v-show="!active&&!empty">
         <img class="accept" src="../assets/checkmark.svg">
+    </div>
+    <div class="button" v-show="!active&&empty">
+        <img class="cant-accept" src="../assets/checkmark.svg">
     </div>
     <div class="text" v-show="active">
         {{ title }}
     </div>
     <div class="container" v-show="!active">
-        <input class="input" v-model="temporary_title">
-        <div class="slug">slug: {{ slug }}</div>
+        <input class="input" v-model="temporaryTitle">
+        <div class="slug" v-show="!empty">slug: {{ slug }}</div>
+        <div class="slug" v-show="empty">slug: please enter a post title</div>
     </div>
 </div>
 </template>
@@ -24,41 +28,72 @@ export default {
   name: 'Title',
   created() {
     this.axios.get('http://localhost:8000/api/titles/').then((response) => {
-      this.current_title_id = response.data[0].id;
+      this.currentTitleId = response.data[0].id;
       this.title = response.data[0].name;
-      this.temporary_title = response.data[0].name;
-      this.real_slug = response.data[0].slug;
+      this.temporaryTitle = response.data[0].name;
     });
   },
   computed: {
+    empty() {
+      return this.slug.length === 0;
+    },
     slug() {
-      return this.temporary_title.toString().toLowerCase()
+      const calculatedSlug = this.temporaryTitle.toString().toLowerCase()
         .replace(/\s+/g, '-')
         .replace(/&/g, '-and-')
         .replace(/[^\w-]+/g, '')
         .replace(/-+/g, '-')
         .replace(/^-+/, '')
         .replace(/-+$/, '');
+      if (this.slugCollision) {
+        return `${calculatedSlug}-${this.slugRandomizer()}`;
+      }
+      return calculatedSlug;
     },
   },
   data() {
     return {
-      current_title_id: 0,
-      title: 'I knew you were trouble when you walked in.',
-      temporary_title: 'I knew you were trouble when you walked in.',
-      real_slug: 'i-knew-you-were-trouble-when-you-walked-in',
       active: true,
+      currentTitleId: 0,
+      slugCollision: false,
+      title: 'I knew you were trouble when you walked in.',
+      temporaryTitle: 'I knew you were trouble when you walked in.',
     };
   },
   methods: {
     accept() {
-      this.title = this.temporary_title;
+      this.title = this.temporaryTitle;
+      this.axios.post('http://localhost:8000/api/titles/', {
+        name: this.title,
+        slug: this.slug,
+      });
     },
     discard() {
-      this.temporary_title = this.title;
+      this.temporaryTitle = this.title;
+    },
+    slugRandomizer() {
+      return Math.random().toString(36).substring(2, 7);
     },
     toggle() {
       this.active = !this.active;
+    },
+  },
+  watch: {
+    temporaryTitle() {
+      this.axios.get(`http://localhost:8000/api/titles/?slug=${this.slug}`).then((response) => {
+        if (response.data.length > 0) {
+          console.log('It already exists');
+          const foundTitleId = response.data[0].id;
+          if (foundTitleId === this.currentTitleId) {
+            console.log('But its the same as our current title');
+            this.slugCollision = false;
+          } else {
+            this.slugCollision = true;
+          }
+        } else {
+          this.slugCollision = false;
+        }
+      });
     },
   },
 };
@@ -83,6 +118,9 @@ img {
     bottom: 6px;
     position: relative;
     width: 25px;
+}
+.cant-accept {
+    background-color: darkslategray;
 }
 .container{
     background-color: white;
